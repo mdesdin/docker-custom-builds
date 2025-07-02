@@ -1,0 +1,13 @@
+{
+    email {env.ACME_EMAIL}
+    acme_dns cloudflare {env.CF_API_TOKEN}
+    servers {
+        trusted_proxies cloudflare {
+            interval 12h
+            timeout 15s
+        }
+    }
+    events {
+        on cert_obtained exec /scripts/certaction.sh {event.data.identifier} {event.data.certificate_path} {event.data.private_key_path}
+    }
+}
