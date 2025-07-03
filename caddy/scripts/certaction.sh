@@ -21,6 +21,7 @@ fi
 # Create destination directory
 DEST_DIR="/opt/share/certs/$IDENTIFIER"
 mkdir -p "$DEST_DIR"
+chmod 700 "$DEST_DIR"
 
 # Copy files
 cp -f "$BASE_PATH$CERT_PATH" "$DEST_DIR/$IDENTIFIER.crt"

@@ -1,0 +1,7 @@
+# Download the script locally
+wget https://raw.githubusercontent.com/Jigsaw-Code/outline-server/master/src/server_manager/install_scripts/install_server.sh
+# Make it executable
+chmod +x install_server.sh
+# Then run it like this
+# Replace HOSTNAME and PORTS
+export CONTAINER_NAME=outline; export SHADOWBOX_DIR=/opt/outline; ./install_server.sh --hostname [HOSTNAME] --api-port [API_PORT] --keys-port [KEYS_PORT]
