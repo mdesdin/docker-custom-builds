@@ -34,12 +34,12 @@ IFS=','
 for domain in $ACTION_DOMAINS; do
   if [ "$domain" = "$IDENTIFIER" ]; then
     echo "Identifier $IDENTIFIER matches $domain in ACTION_DOMAINS"
-    echo "Reloading PostgreSQL config..."
-    curl -H "Content-Type: application/json" -d "{\"username\": \"caddy@$HOSTNAME\", \"content\": \"Reloading PostgreSQL config...\"}" $DISCORD_WEBHOOK
-    psql postgresql://postgres:${POSTGRES_PASSWORD}@postgresql -c "SELECT pg_reload_conf();"
-    echo "Reloading Stalwart certificates..."
-    curl -H "Content-Type: application/json" -d "{\"username\": \"caddy@$HOSTNAME\", \"content\": \"Reloading Stalwart certificates...\"}" $DISCORD_WEBHOOK
-    stalwart-cli -u http://stalwart:8080 -c $STW_CREDENTIALS server reload-certificates
+    #echo "Reloading PostgreSQL config..."
+    #curl -H "Content-Type: application/json" -d "{\"username\": \"caddy@$HOSTNAME\", \"content\": \"Reloading PostgreSQL config...\"}" $DISCORD_WEBHOOK
+    #psql postgresql://postgres:${POSTGRES_PASSWORD}@postgresql -c "SELECT pg_reload_conf();"
+    #echo "Reloading Stalwart certificates..."
+    #curl -H "Content-Type: application/json" -d "{\"username\": \"caddy@$HOSTNAME\", \"content\": \"Reloading Stalwart certificates...\"}" $DISCORD_WEBHOOK
+    #stalwart-cli -u http://stalwart:8080 -c $STW_CREDENTIALS server reload-certificates
     break
   fi
 done

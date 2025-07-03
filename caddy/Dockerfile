@@ -19,4 +19,5 @@ RUN apk add --no-cache postgresql-client curl
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 COPY --from=builder --chmod=755 --chown=root:root /opt/bin/stalwart-cli /opt/bin/stalwart-cli
 RUN curl -L --create-dirs --output /etc/caddy/Caddyfile https://raw.githubusercontent.com/mdesdin/docker-custom-builds/refs/heads/main/caddy/Caddyfile
-RUN curl -L --create-dirs --create-file-mode 0755 --output /scripts/certaction.sh https://raw.githubusercontent.com/mdesdin/docker-custom-builds/refs/heads/main/caddy/scripts/certaction.sh
+RUN curl -L --create-dirs --output /scripts/certaction.sh https://raw.githubusercontent.com/mdesdin/docker-custom-builds/refs/heads/main/caddy/scripts/certaction.sh
+RUN chmod +x /scripts/certaction.sh
