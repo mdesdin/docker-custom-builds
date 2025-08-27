@@ -16,6 +16,7 @@ RUN curl -L $(curl -s https://api.github.com/repos/stalwartlabs/stalwart/release
 FROM caddy:2.10.0
 
 RUN apk add --no-cache postgresql-client curl
+RUN addgroup root postgres
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 COPY --from=builder --chmod=755 --chown=root:root /opt/bin/stalwart-cli /opt/bin/stalwart-cli
 RUN curl -L --create-dirs --output /etc/caddy/Caddyfile https://raw.githubusercontent.com/mdesdin/docker-custom-builds/refs/heads/main/caddy/Caddyfile
