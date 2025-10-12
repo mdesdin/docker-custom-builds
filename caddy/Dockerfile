@@ -1,19 +1,26 @@
-FROM caddy:2.10.0-builder AS builder
+ARG CADDY_VERSION="2"
+
+FROM caddy:${CADDY_VERSION}-builder AS builder
 
 RUN xcaddy build \
     --with github.com/caddy-dns/cloudflare \
     --with github.com/WeidiDeng/caddy-cloudflare-ip \
-    #--with github.com/hslatman/caddy-crowdsec-bouncer/http \
-    #--with github.com/hslatman/caddy-crowdsec-bouncer/layer4 \
-    #--with github.com/hslatman/caddy-crowdsec-bouncer/appsec \
+    --with github.com/caddyserver/transform-encoder \
+    --with github.com/mholt/caddy-l4 \
+    --with github.com/hslatman/caddy-crowdsec-bouncer/http \
+    --with github.com/hslatman/caddy-crowdsec-bouncer/layer4 \
+    --with github.com/hslatman/caddy-crowdsec-bouncer/appsec \
     --with github.com/mholt/caddy-events-exec \
-    --with github.com/porech/caddy-maxmind-geolocation
+    --with github.com/porech/caddy-maxmind-geolocation \
+    --with github.com/lucaslorentz/caddy-docker-proxy/v2 \
+    --with github.com/yroc92/postgres-storage \
+    --with github.com/pberkel/caddy-storage-redis
 
 RUN apk add curl jq
 RUN mkdir -p /opt/bin
 RUN curl -L $(curl -s https://api.github.com/repos/stalwartlabs/stalwart/releases/latest?per_page=100 | jq --raw-output '[.assets[] | select(.browser_download_url | test("x86_64-unknown-linux-musl"))][0] | .browser_download_url') | tar xzvf - -C /opt/bin
 
-FROM caddy:2.10.0
+FROM caddy:${CADDY_VERSION}
 
 RUN apk add --no-cache postgresql-client curl
 RUN addgroup root postgres
